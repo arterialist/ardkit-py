@@ -9,7 +9,7 @@ tool description into the model's context window. `ardkit` turns your backend in
 an ARD **publisher** (and optionally a search **registry**) in a few lines.
 
 ```bash
-pip install "ardkit-ai[fastapi]"   # import name: ardkit
+pip install "ardkit-ai[fastapi]"
 ```
 
 ```python

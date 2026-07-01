@@ -15,11 +15,8 @@ context window. `ardkit` turns any **FastAPI / FastMCP / AG2** backend into an A
 publisher (and, optionally, a search registry) in a few lines.
 
 ```bash
-pip install "ardkit-ai[fastapi]"      # import name stays `ardkit`
+pip install "ardkit-ai[fastapi]"
 ```
-
-> The PyPI distribution is **`ardkit-ai`** (the bare name `ardkit` was already
-> taken); the import package is **`ardkit`**.
 
 ## Quickstart — one call
 
