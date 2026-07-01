@@ -1,0 +1,108 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ardkit-ai"
+dynamic = ["version"]
+description = "Plug-and-play ARD (Agentic Resource Discovery) publisher & registry middleware for FastAPI, FastMCP and AG2 backends."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP",
+    "Framework :: FastAPI",
+    "Framework :: AsyncIO",
+]
+keywords = [
+    "ard",
+    "agentic resource discovery",
+    "ai-catalog",
+    "mcp",
+    "a2a",
+    "agent discovery",
+    "fastapi",
+    "fastmcp",
+    "ag2",
+]
+authors = [{ name = "Andrew Gostishchev", email = "contact@arteriali.st" }]
+
+dependencies = [
+    "pydantic>=2.6",
+    "cel-python>=0.5",
+]
+
+[project.optional-dependencies]
+validation = ["jsonschema>=4.21"]
+fastapi = ["fastapi>=0.110", "starlette>=0.36"]
+mcp = ["mcp>=1.0"]
+ag2 = ["ag2>=0.5"]
+all = ["jsonschema>=4.21", "fastapi>=0.110", "starlette>=0.36"]
+
+[project.urls]
+Homepage = "https://github.com/arterialist/ardkit-py"
+Documentation = "https://github.com/arterialist/ardkit-py#readme"
+Issues = "https://github.com/arterialist/ardkit-py/issues"
+Specification = "https://agenticresourcediscovery.org/spec/"
+
+[tool.hatch.version]
+path = "src/ardkit/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ardkit"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/ardkit", "tests", "README.md", "LICENSE"]
+
+[dependency-groups]
+lint = ["ruff>=0.6", "pyright>=1.1.380"]
+testing = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "jsonschema>=4.21",
+    "fastapi>=0.110",
+    "starlette>=0.36",
+    "httpx>=0.27",
+]
+dev = ["pre-commit", "detect-secrets", "build", "mkdocs-material"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "C4"]
+ignore = ["B008"]  # FastAPI Depends() in defaults
+
+[tool.pyright]
+include = ["src/ardkit"]
+pythonVersion = "3.11"
+typeCheckingMode = "standard"
+reportMissingImports = false  # optional extras (fastapi/mcp/ag2/cel) are not always installed
+reportPrivateImportUsage = false  # some optional deps (e.g. celpy) re-export beyond __all__
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+asyncio_mode = "auto"
+addopts = "--strict-markers --strict-config -q"
+testpaths = ["tests"]
+markers = ["slow", "integration"]
+
+[tool.coverage.run]
+branch = true
+source = ["ardkit"]

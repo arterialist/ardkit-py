@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: uv sync --group lint --group testing
+      - name: Ruff check
+        run: uv run ruff check src tests
+      - name: Ruff format check
+        run: uv run ruff format src tests --check
+      - name: Pyright
+        run: uv run pyright src/ardkit
+
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: uv sync --group testing
+      - name: Run tests
+        run: uv run pytest
+
+  build:
+    name: Build distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build
+        run: pipx run build
+      - name: Check schemas are packaged
+        run: |
+          python - <<'PY'
+          import tarfile, glob, sys
+          sdist = glob.glob("dist/*.tar.gz")[0]
+          names = tarfile.open(sdist).getnames()
+          need = ["ai-catalog.schema.json", "ard.openapi.yaml", "SPEC_VERSION"]
+          missing = [n for n in need if not any(n in m for m in names)]
+          sys.exit("missing from sdist: %s" % missing if missing else 0)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

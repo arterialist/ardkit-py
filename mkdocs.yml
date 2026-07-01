@@ -1,0 +1,31 @@
+site_name: ardkit
+site_description: ARD (Agentic Resource Discovery) publisher & registry toolkit for Python
+repo_url: https://github.com/arterialist/ardkit-py
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - content.code.copy
+    - navigation.sections
+    - navigation.top
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - tables
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Adapters: adapters.md
+  - Registry: registry.md
+  - Concepts: concepts.md
