@@ -1,5 +1,6 @@
 site_name: ardkit
 site_description: ARD (Agentic Resource Discovery) publisher & registry toolkit for Python
+site_url: https://arterialist.github.io/ardkit-py/
 repo_url: https://github.com/arterialist/ardkit-py
 theme:
   name: material

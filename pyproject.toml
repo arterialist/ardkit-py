@@ -55,7 +55,7 @@ all = ["jsonschema>=4.21", "fastapi>=0.110", "starlette>=0.36"]
 
 [project.urls]
 Homepage = "https://github.com/arterialist/ardkit-py"
-Documentation = "https://github.com/arterialist/ardkit-py#readme"
+Documentation = "https://arterialist.github.io/ardkit-py/"
 Issues = "https://github.com/arterialist/ardkit-py/issues"
 Specification = "https://agenticresourcediscovery.org/spec/"
 

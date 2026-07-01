@@ -3,6 +3,7 @@
 [![CI](https://github.com/arterialist/ardkit-py/actions/workflows/ci.yaml/badge.svg)](https://github.com/arterialist/ardkit-py/actions/workflows/ci.yaml)
 [![PyPI](https://img.shields.io/pypi/v/ardkit-ai.svg)](https://pypi.org/project/ardkit-ai/)
 [![Python](https://img.shields.io/pypi/pyversions/ardkit-ai.svg)](https://pypi.org/project/ardkit-ai/)
+[![Docs](https://img.shields.io/badge/docs-ardkit-blue.svg)](https://arterialist.github.io/ardkit-py/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Spec: ai-catalog 1.0](https://img.shields.io/badge/ARD%20spec-1.0-success.svg)](https://agenticresourcediscovery.org/spec/)
 
